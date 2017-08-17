@@ -1,0 +1,15 @@
+$color: #f1a5c3;
+
+body {
+  background-color: $color;
+  background-image: url('../image/kola.jpeg');
+}
+
+div {
+  background: red;
+  display: flex;
+
+  & a {
+    background: yellow;
+  }
+}
