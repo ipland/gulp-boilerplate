@@ -10,11 +10,11 @@ var assets       = require('postcss-assets')
 var htmlreplace  = require('gulp-html-replace')
 
 var config = {
-   srcCss     : 'src/css/*.css',
-   buildCss   : 'dist/css',
+   srcCss     : 'src/**/*.css',
+   buildCss   : 'dist/',
    srcImage   : 'src/image/*',
    buildImage : 'dist/image',
-   srcHTML    : 'index.html',
+   srcHTML    : 'src/**/*.html',
    /**
     * srcHTMLMap
     * index
@@ -28,7 +28,10 @@ var config = {
 gulp.task('html-replace', function () {
   gulp.src(config.srcHTML)
     .pipe(htmlreplace({
-      'css': 'css/base.min.css',
+      'css': [
+        '/css/base.min.css',
+        'style.min.css'
+      ]
     }))
     // .pipe(minifyHTML(opts))
     .pipe(gulp.dest(config.buildHTML));
@@ -75,12 +78,12 @@ gulp.task('default', ['build-css', 'watch'])
 gulp.task('serve', ['css', 'image', 'html-replace'], function() {
    browserSync.init({
       server: {
-         baseDir: './'
+         baseDir: './dist'
       }
    });
    gulp.watch(config.srcCss, ['css'])
    gulp.watch(config.srcImage, ['image'])
-   gulp.watch("*.html").on('change', browserSync.reload)
+   gulp.watch(["*.html", "src/**/*.html"]).on('change', browserSync.reload)
 })
 gulp.task('default', ['serve'])
 
@@ -110,4 +113,4 @@ gulp.task('build-css', function(cb) {
 // ------------------------------------
 // build CSS & image
 // ------------------------------------
-gulp.task('build', ['build-css', 'image'])
+gulp.task('build', ['build-css', 'image', 'html-replace'])

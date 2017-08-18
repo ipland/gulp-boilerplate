@@ -1,0 +1,14 @@
+.signin__wrapper {
+  max-width: 320px;
+  margin: 64px auto;
+  padding: 40px 16px;
+}
+
+.sign {
+  // background: red;
+}
+
+.input__wrapper:not(:first-child) {
+  margin-top: 1em;
+}
+
